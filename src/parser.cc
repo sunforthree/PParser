@@ -8,6 +8,7 @@ struct pkt_parser* init_parser() {
   parser->ether = new struct ether_parser;
   // parser->ip = new struct ip_parser;
   parser->tcp = new struct tcp_parser;
+  parser->udp = new struct udp_parser;
   parser->http = new struct http_parser;
   parser->http->request = new struct http_request;
   parser->http->response = new struct http_response;
@@ -24,6 +25,8 @@ void end_parser(struct pkt_parser* parser) {
   //   delete parser->ip;
   if (parser != nullptr && parser->tcp != nullptr)
     delete parser->tcp;
+  if (parser != nullptr && parser->udp != nullptr)
+    delete parser->udp;
   if (parser != nullptr && parser->http != nullptr) {
     if (parser->http->request != nullptr)
       delete parser->http->request;
@@ -68,6 +71,13 @@ void show(struct pkt_parser* parser) {
     printf("   windows= %d \n", parser->tcp->windows);
     printf("   checksum= 0x%02x \n", parser->tcp->checksum);
     printf("   urp= %d \n", parser->tcp->urp);
+  }
+  if (parser->flags.udp && parser->udp != nullptr) {
+    printf("###[ UDP ]###\n");
+    printf("   sport= %d \n", parser->udp->sport);
+    printf("   dport= %d \n", parser->udp->dport);
+    printf("   len= %d \n", parser->udp->len);
+    printf("   checksum= 0x%02x \n", parser->udp->checksum);
   }
   if (parser->flags.http && parser->http != nullptr) {
     struct http_parser* hp = parser->http;

@@ -10,6 +10,7 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
+#include <netinet/udp.h>
 #include <arpa/inet.h>
 
 // C++ infterface to parse raw data.
@@ -66,7 +67,10 @@ struct tcp_parser {
 };
 
 struct udp_parser {
-
+  uint16_t sport;
+  uint16_t dport;
+  uint16_t len;
+  uint16_t checksum;
 };
 
 struct http_parser {
@@ -92,6 +96,7 @@ struct pkt_parser {
   struct ether_parser* ether;
   struct ip_parser* ip;
   struct tcp_parser* tcp;
+  struct udp_parser* udp;
   struct http_parser* http;
 };
 

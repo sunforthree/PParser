@@ -126,6 +126,15 @@ void packet_handler(u_char* parser, const struct pcap_pkthdr* header, const u_ch
     /* Get udp header. */
     else if (u_char(ip->ip_p) == IPPROTO_UDP) {
       internal_parser->flags.udp = true;
+      struct udphdr* udp_header = (struct udphdr*)(pkt_data + ether_header_len + ip_header_len);
+
+
+      struct udp_parser* udp = internal_parser->udp;
+      udp->sport = ntohs(udp_header->uh_sport);
+      udp->dport = ntohs(udp_header->uh_dport);
+      udp->len = ntohs(udp_header->len);
+      udp->checksum = ntohs(udp_header->check);
+      /* End of udp header. */
     }
 
   }
