@@ -45,8 +45,8 @@ void end_pcap(pcap_t* handle) {
   http_end(http_handle);
 }
 
-void packet_process(pcap_t* handle, struct pkt_parser* parser) {
-  if (pcap_loop(handle, -1, packet_handler, (u_char*)parser) < 0) {
+void packet_process(pcap_t* handle, struct pkt_parser* parser, pcap_handler handler) {
+  if (pcap_loop(handle, -1, handler, (u_char*)parser) < 0) {
     fprintf(stderr, "pcap_loop() failed: %s\n", pcap_geterr(handle));
     fprintf(stderr, "pcap_loop() failed: %s, errcode: %d\n", errBuf, err);
     exit(-1);
