@@ -121,4 +121,39 @@ void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 h
   /* free & Clear internal variables. */
   internal_url = "";
 }
+
+void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 http_len, unordered_map& hp) {
+  /* Get llhttp_t* handle. */
+  llhttp_t* handle = http_cube->handle;
+  /* get header map & clear old k-v. */
+  internal_header = &hp;
+  internal_header->clear();
+  enum llhttp_errno err = llhttp_execute(handle, (const char*)http_data, http_len);
+  if (err == HPE_OK) {
+    /* Successfully parsed! */
+    
+    /* Deal with different http types. (REQUEST/RESPONSE) */
+    uint8_t http_type = llhttp_get_type(handle);
+    if (http_type == HTTP_REQUEST) {
+      hp.emplace("type", "HTTP_REQUEST");
+      // struct http_request* request = hp->request;
+      hp.emplace("method", llhttp_method_name(llhttp_method_t(llhttp_get_method(handle))));
+      hp.emplace("url", internal_url);
+      hp.emplace("version", std::to_string(llhttp_get_http_major(handle)) + '.' + std::to_string(llhttp_get_http_minor(handle)));
+    }
+    else if (http_type == HTTP_RESPONSE) {
+      hp.emplace("type", "HTTP_RESPONSE");
+      hp.emplace("version", std::to_string(llhttp_get_http_major(handle)) + '.' + std::to_string(llhttp_get_http_minor(handle)));
+      hp.emplace("status_code", std::to_string(llhttp_get_status_code(handle)));
+      hp.emplace("status_name", llhttp_status_name(llhttp_status_t(llhttp_get_status_code(handle))));
+    }
+  }
+  else {
+    fprintf(stderr, "HTTP parser error: %s, %s\n", llhttp_errno_name(err), handle->reason);
+  }
+
+  /* free & Clear internal variables. */
+  internal_url = "";
+}
+
 }

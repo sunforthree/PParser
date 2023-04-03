@@ -32,6 +32,8 @@ void http_end(llhttp_cube_t* http_cube);
 // the parsed result will store in hp.
 void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 http_len, struct http_parser* hp);
 
+void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 http_len, unordered_map& hp);
+
 } /* namespace sunfor3 */
 
 #endif  // _SRC_HTTP_H_
