@@ -53,6 +53,16 @@ void packet_process(pcap_t* handle, struct pkt_parser* parser, pcap_handler hand
   }
 }
 
+void packet_process(pcap_t* handle, map_parser* parser, pcap_handler handler) {
+  if (handler == packet_handler) {
+    fprintf(stderr, "Pass yourself handler to it\n");
+  }
+  if (pcap_loop(handle, -1, handler, (u_char*)parser) < 0) {
+    fprintf(stderr, "pcap_loop() failed: %s\n", pcap_geterr(handle));
+    fprintf(stderr, "pcap_loop() failed: %s, errcode: %d\n", errBuf, err);
+  }
+}
+
 void packet_handler(u_char* parser, const struct pcap_pkthdr* header, const u_char* pkt_data) {  
   struct pkt_parser* internal_parser = (struct pkt_parser*)parser;
   /* Clean parser flags. */

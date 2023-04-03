@@ -14,6 +14,8 @@
 
 namespace sunfor3 {
 
+extern llhttp_cube_t* http_handle;
+
 enum PcapType {
     OFFLINE_TYPE = 0,
     ONLINE_TYPE,
@@ -44,6 +46,15 @@ void packet_handler(u_char* user_Data, const struct pcap_pkthdr* header, const u
 // 'pcap_handler' parameter is as follows: 
 // (u_char *, const struct pcap_pkthdr *, const u_char *)
 void packet_process(pcap_t* handle, struct pkt_parser* parser, pcap_handler handler=packet_handler);
+
+// Main function, process packet here,
+// pass a function ptr to it do the real handle things.
+// 'pcap_handler' parameter is as follows: 
+// (u_char *, const struct pcap_pkthdr *, const u_char *)
+// The defference between last one is:
+// this pass a std::unordered_map to it.
+// Make sure when using this, pass yourself handler to it.
+void packet_process(pcap_t* handle, map_parser* parser, pcap_handler handler=packet_handler);
 
 } /* namespace sunfor3 */
 
