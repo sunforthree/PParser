@@ -50,5 +50,13 @@ target_link_libraries(PParser PRIVATE libpcap)
 # Build main target.
 add_executable(main main.cc)
 target_link_libraries(main PRIVATE libpcap)
+target_include_directories(main PRIVATE ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(main PUBLIC PParser)
 target_compile_features(main PUBLIC cxx_std_11)
+
+# # Build map_test target.
+# add_executable(map_test map_test.cc)
+# target_link_libraries(map_test PRIVATE libpcap)
+# target_include_directories(map_test PRIVATE ${PROJECT_SOURCE_DIR}/src)
+# target_link_libraries(map_test PUBLIC PParser)
+# target_compile_features(map_test PUBLIC cxx_std_17)
