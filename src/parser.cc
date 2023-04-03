@@ -38,6 +38,22 @@ void end_parser(struct pkt_parser* parser) {
     delete parser;
 }
 
+struct map_parser* init_map_parser() {
+  map_parser* parser = new map_parser;
+
+  parser->map[std::string("ehter")];
+  parser->map[std::string("ip")];
+  parser->map[std::string("tcp")];
+  parser->map[std::string("udp")];
+  parser->map[std::string("http")];
+
+  return parser;
+}
+
+void end_map_parser(struct map_parser* parser) {
+  delete parser;
+}
+
 void show(struct pkt_parser* parser) {
   if (parser->flags.ether && parser->ether != nullptr) {
     printf("###[ Ethernet ]###\n");
@@ -166,6 +182,20 @@ void clean_flags(struct proto_flag &flags) {
   flags.tcp = false;
   flags.udp = false;
   flags.http = false;
+}
+
+bool check_flags(const struct proto_flag &flags, const std::string& layer) {
+  if (layer == "ether")
+    return flags.ether;
+  else if (layer == "ip")
+    return flags.ip;
+  else if (layer == "tcp")
+    return flags.tcp;
+  else if (layer == "udp")
+    return flags.udp;
+  else if (layer == "http")
+    return flags.http;
+  return false;
 }
 
 }

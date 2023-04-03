@@ -104,6 +104,18 @@ struct pkt_parser* init_parser();
 
 void end_parser(struct pkt_parser* parser);
 
+using map_t = std::unordered_map<std::string, std::unordered_map<std::string, std::string>>;
+using unordered_map = std::unordered_map<std::string, std::string>;
+
+struct map_parser {
+  struct proto_flag flags;
+  map_t map;
+};
+
+struct map_parser* init_map_parser();
+
+void end_map_parser(struct map_parser* parser);
+
 // Print every layers in parser.
 // From l2 - L5.
 void show(struct pkt_parser* parser);
@@ -123,6 +135,9 @@ char* tcp_ftoa(uint8_t flag);
 
 // Clean proto_flag.
 void clean_flags(struct proto_flag &flags);
+
+// Check flag true or not.
+bool check_flags(const struct proto_flag &flags, const std::string& layer);
 
 } /* namespace sunfor3 */
 
