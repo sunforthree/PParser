@@ -41,7 +41,7 @@ void end_parser(struct pkt_parser* parser) {
 struct map_parser* init_map_parser() {
   map_parser* parser = new map_parser;
 
-  parser->map[std::string("ehter")];
+  parser->map[std::string("ether")];
   parser->map[std::string("ip")];
   parser->map[std::string("tcp")];
   parser->map[std::string("udp")];
@@ -100,7 +100,7 @@ void show(struct pkt_parser* parser) {
     printf("###[ HTTP ]###\n");
     /* HTTP_REQUEST */
     if (hp->type == 1) {
-      printf(" ###[ HTTPR EQUEST ]###\n");
+      printf(" ###[ HTTPR REQUEST ]###\n");
       printf("   method= %s \n", hp->request->method);
       printf("   url= %s \n", hp->request->url.c_str());
       printf("   version= %s \n", hp->request->version.c_str());
