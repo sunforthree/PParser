@@ -91,6 +91,7 @@ void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 h
   /* get header map & clear old k-v. */
   internal_header = &(hp->header);
   internal_header->clear();
+  llhttp_init(http_cube->handle, HTTP_BOTH, http_cube->settings);
   enum llhttp_errno err = llhttp_execute(handle, (const char*)http_data, http_len);
   if (err == HPE_OK) {
     /* Successfully parsed! */
@@ -128,6 +129,7 @@ void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 h
   /* get header map & clear old k-v. */
   internal_header = &hp;
   internal_header->clear();
+  llhttp_init(http_cube->handle, HTTP_BOTH, http_cube->settings);
   enum llhttp_errno err = llhttp_execute(handle, (const char*)http_data, http_len);
   if (err == HPE_OK) {
     /* Successfully parsed! */
