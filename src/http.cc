@@ -115,9 +115,11 @@ void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 h
       response->status_name = llhttp_status_name(llhttp_status_t(llhttp_get_status_code(handle)));
     }
   }
+#ifdef DEBUG
   else {
     fprintf(stderr, "HTTP parser error: %s, %s\n", llhttp_errno_name(err), handle->reason);
   }
+#endif
 
   /* free & Clear internal variables. */
   internal_url = "";
@@ -150,9 +152,11 @@ void http_parse(llhttp_cube_t* http_cube, const u_char* http_data, bpf_u_int32 h
       hp.emplace("status_name", llhttp_status_name(llhttp_status_t(llhttp_get_status_code(handle))));
     }
   }
+#ifdef DEBUG
   else {
     fprintf(stderr, "HTTP parser error: %s, %s\n", llhttp_errno_name(err), handle->reason);
   }
+#endif
 
   /* free & Clear internal variables. */
   internal_url = "";

@@ -123,12 +123,15 @@ void packet_handler(u_char* parser, const struct pcap_pkthdr* header, const u_ch
 
       /* Get http header. */
       if (tcp->sport == 80 || tcp->dport == 80) {
-        internal_parser->flags.http = true;
         const u_char* http_data = pkt_data + ether_header_len + ip_header_len + tcp_header_len;
         len -= tcp_header_len;
 
-        struct http_parser* hp = internal_parser->http;
-        http_parse(http_handle, http_data, len, hp);
+        /* Deal with TCP padding, only extra len >= 21 bytes we think is official HTTP. */
+        if (len >= 21) { 
+          internal_parser->flags.http = true;
+          struct http_parser* hp = internal_parser->http;
+          http_parse(http_handle, http_data, len, hp);
+        }
       }
       /* End of http header. */
 
