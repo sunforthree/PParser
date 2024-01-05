@@ -8,7 +8,7 @@
 #include "./native/llhttp.h"
 #include "parser.h"
 
-// C++ infterface to parse http data.
+// C++ interface to parse http data.
 // Defined sorts of functions to use llhttp.
 // --------------------------------------------------
 

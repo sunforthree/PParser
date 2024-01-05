@@ -17,7 +17,7 @@ struct pkt_parser* init_parser() {
 }
 
 // Delete memory which maybe malloc.
-// (Ehter and IP use the raw ptr of packet.)
+// (Ether and IP use the raw ptr of packet.)
 void end_parser(struct pkt_parser* parser) {
   if (parser->ether != nullptr)
     delete parser->ether;
@@ -100,7 +100,7 @@ void show(struct pkt_parser* parser) {
     printf("###[ HTTP ]###\n");
     /* HTTP_REQUEST */
     if (hp->type == 1) {
-      printf(" ###[ HTTPR REQUEST ]###\n");
+      printf(" ###[ HTTP REQUEST ]###\n");
       printf("   method= %s \n", hp->request->method);
       printf("   url= %s \n", hp->request->url.c_str());
       printf("   version= %s \n", hp->request->version.c_str());

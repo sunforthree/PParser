@@ -31,7 +31,7 @@ struct pkt_info {
 // Init a handle, the word `type` determines whether
 // word `location` is a file or a device.
 // OFFLINE_TYPE -> file
-// ONLINE_TYPE  -> deivce  
+// ONLINE_TYPE  -> device  
 pcap_t* init_pcap(PcapType type, const char* location);
 
 // If handle not nullptr, close it.
@@ -51,7 +51,7 @@ void packet_process(pcap_t* handle, struct pkt_parser* parser, pcap_handler hand
 // pass a function ptr to it do the real handle things.
 // 'pcap_handler' parameter is as follows: 
 // (u_char *, const struct pcap_pkthdr *, const u_char *)
-// The defference between last one is:
+// The difference between last one is:
 // this pass a std::unordered_map to it.
 // Make sure when using this, pass yourself handler to it.
 void packet_process(pcap_t* handle, map_parser* parser, pcap_handler handler=packet_handler);

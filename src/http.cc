@@ -10,7 +10,7 @@ std::unordered_map<std::string, std::string>* internal_header;
 std::string internal_field;
 std::string internal_value;
 
-/* User callbakcs definations start. */
+/* User callbacks definations start. */
 int handle_on_message_complete(llhttp_t *arg) {
   /* do nothing here. */
   return 0;
@@ -48,7 +48,7 @@ int handle_on_headers_complete(llhttp_t *arg) {
   return 0;
 }
 
-/* End of user callbakcs definations. */
+/* End of user callbacks definations. */
 
 llhttp_cube_t* http_init() {
   llhttp_cube_t* http_cube = new llhttp_cube_t;

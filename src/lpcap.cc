@@ -70,7 +70,7 @@ void packet_handler(u_char* parser, const struct pcap_pkthdr* header, const u_ch
 
   u_int len = header->len;
   if (len < sizeof(struct ether_header)) {
-    fprintf(stderr, "incomplated packet\n");
+    fprintf(stderr, "incomplete packet\n");
     return;
   }
 
