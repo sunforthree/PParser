@@ -4,6 +4,7 @@ project(PROTOPARSER)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build)
 set(SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 include(FetchContent)
 

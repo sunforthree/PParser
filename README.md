@@ -5,6 +5,7 @@ PParser is a fast protocol parser used to parse `HTTP` in C++ & C.
 PParser uses `libpcap` as low-level packet parser, and parses `http` in `llhttp`.
 
 ## Getting started
+
 PParser gives two types of accepting packets. One is `ONLINE_TYPE`, which you need to provide your network device, PParser will parse packets from your device. Another is `OFFLINE_TYPE`, in which you need to give a pcap file, PParser will parse packets in the file.
 
 PParser can easily be used. Just include the file `lpcap.h`, init a `pcap_t*` handle, `pkt_parser*` parser in your program. And choose one type. A demo shows how to use.
@@ -66,7 +67,7 @@ Output will be like:
    checksum= 0xc628 
    urp= 0 
 ###[ HTTP ]###
- ###[ HTTPR EQUEST ]###
+ ###[ HTTP REQUEST ]###
    method= GET 
    url= / 
    version= 1.1 
@@ -76,4 +77,14 @@ Output will be like:
 ```
 
 ## Installation
+
 PParser depends on two libraries: [llhttp](https://github.com/nodejs/llhttp) and [libpcap](https://www.tcpdump.org/). Make sure your machine has installed these two libraries. `llhttp` won't install its library in `usr/local/lib`, it's recommended to move `.a` by yourself or add a search path in `CMake`.
+
+## BenchMark
+
+Test with a 2.2Gb size `http.pcapng``:
+
+|                | with L7 HTTP | without L7 HTTP |
+| :------------: | :----------: | :-------------: |
+| Normal compile |  1.56Gbps    |    7.62Gbps     |
+|      +O3       |  1.60Gbps    |    7.89Gbps     |
